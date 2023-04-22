@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panghu.mapper.UserMapper">
+    <insert id="saveUser" useGeneratedKeys="true"  keyProperty="id">
+
+        insert into user(name, gender, birthday, idCard, email, phone, address)
+        values (#{name}, #{gender}, #{birthday}, #{idCard}, #{email}, #{phone}, #{address})
+    </insert>
+
+    <select id="selectUserList" resultType="com.panghu.mode.User">
+        select *
+        from user;
+    </select>
+    <select id="selectUserById" resultType="com.panghu.mode.User">
+
+        select *
+        from user
+        where id = #{id}
+    </select>
+</mapper>

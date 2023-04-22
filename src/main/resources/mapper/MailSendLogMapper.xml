@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panghu.mapper.MailSendLogMapper">
+    <insert id="saveMailSendLog">
+
+        INSERT INTO mail_send_log (`msgId`, `userId`, `status`, `routeKey`, `exchange`, `tryCount`, `tryTime`,
+                                   `createTime`)
+        VALUES (#{msgId}, #{userId}, #{status}, #{routeKey}, #{exchange}, #{tryCount}, #{tryTime}, #{createTime})
+
+    </insert>
+
+    <update id="updateStatusByMsgId">
+        update mail_send_log
+        set status = #{status}
+        where msgId = #{msgId}
+    </update>
+    <update id="updateCount">
+        update mail_send_log
+        set tryCount   = tryCount + 1,
+            updateTime = #{date}
+        where msgId = #{msgId}
+    </update>
+    <select id="selectList" resultType="com.panghu.mode.MailSendLog">
+
+        select *
+        from mail_send_log
+        where status = 0
+          and tryTime &lt; #{now}
+    </select>
+
+
+</mapper>
